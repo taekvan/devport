@@ -17,8 +17,8 @@ from test_base import TestBase
 
 class RegistrationTest(TestBase):
     """Class to test registration and displayed games quantity"""
-    psw_len_error = "Password must contain at least 8 characters include letters, \
-        numbers and special characters."
+    psw_len_error = "Password must contain at least 8 characters include letters, "\
+        "numbers and special characters."
 
     def test_registration_positive(self):
         """Method to check positive registration"""
