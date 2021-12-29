@@ -1,5 +1,5 @@
 # devport
-Install requirements:
+1) Install requirements:
 pip install -r requirements.txt
 
-run the test_registration.py
+2)run the test_registration.py
