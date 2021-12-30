@@ -4,7 +4,7 @@ Created on Dec 29, 2021
 '''
 
 
-class StartPageLocators(): # pylint: disable=too-few-public-methods
+class StartPageLocators():  # pylint: disable=too-few-public-methods
     """Class that contains start page locators"""
 
     MAIN_PAGE_WRAPPER_XPATH = "//div[@class='appWrap']"
@@ -26,8 +26,9 @@ class StartPageLocators(): # pylint: disable=too-few-public-methods
     RGSTR_PASSWORD_LENGTH_ERROR_XPATH = RGSTR_FORM_WRAPPER_XPATH + \
         "//div[@class='error danger-color passValidation']"
 
-    LIVE_BTN_XPATH = "//a[@href='/live?sport_id=7']"
-
+    TOP_SLIDER_WRAPPER = "//div[@class='sliderWrap pageContainer']"
+    LIVE_BTN_XPATH = TOP_SLIDER_WRAPPER + "//a[contains(@href,'/live')]"
+    # //div[@class='sliderWrap pageContainer']//a[contains(@href,'/live')]
     USER_WRAP_LOGIN_XPATH = "//div[@class='userWrap curPointer logined']"
     LOGGED_USER_EMAIL_XPATH = USER_WRAP_LOGIN_XPATH + "//span[@class='userName ellipsis']"
     LIVE_SECTION_NAME = "//div[@class='pageWrap livePageWrap']/h1"
