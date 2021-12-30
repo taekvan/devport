@@ -27,9 +27,12 @@ class TestBase(unittest.TestCase):
 
         driver_path = os.path.abspath(
             os.path.join(os.getcwd(), "src", "drivers", "chromedriver.exe"))
+        # os.path.join(os.getcwd(), "src", "drivers", "chromedriver"))
+
         service = Service(driver_path)
-        cls.driver = webdriver.Chrome(service=service,
-                                      options=TestBase.prepare_chrome_options())
+        cls.driver = webdriver.Chrome(
+            service=service,
+            options=TestBase.prepare_chrome_options())
         cls.driver.get(Urls.start_page)
 
     @classmethod
@@ -45,9 +48,16 @@ class TestBase(unittest.TestCase):
         """method to prepare chrome option"""
         chrome_options = ChromeOptions()
         chrome_options.add_argument('--disable-extensions')
+
+        # chrome_options.binary_location = "/usr/bin/google-chrome-stable"
+
         chrome_options.add_argument('--start-maximized')
         chrome_options.add_argument('--ignore-certificate-errors')
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        # chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--disable-software-rasterizer')
         return chrome_options
