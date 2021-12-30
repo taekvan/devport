@@ -6,6 +6,7 @@ Created on Dec 29, 2021
 import unittest
 import string
 import random
+import logging
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,9 +20,12 @@ class RegistrationTest(TestBase):
     """Class to test registration and displayed games quantity"""
     psw_len_error = "Password must contain at least 8 characters include letters, "\
         "numbers and special characters."
+    logging.basicConfig(level=logging.INFO)
 
     def test_registration_positive(self):
         """Method to check positive registration"""
+
+        logging.info('Run the positive registration test')
         # Check the page is displayed
         self.open_registration_form()
         # Fill the form
@@ -31,15 +35,17 @@ class RegistrationTest(TestBase):
         self.fill_the_form(user_email, user_login, user_password)
         # Click registration button
         self.driver.find_element(By.XPATH, StartPageLocators.RGSTR_SUBMIT_XPATH).click()
-        WebDriverWait(self.driver, 5).until(
+        WebDriverWait(self.driver, 15).until(
             EC.invisibility_of_element(
                 (By.XPATH, StartPageLocators.RGSTR_FORM_WRAPPER_XPATH)),
             message="The registration form should not be visible")
         # Check the user logged in
         self.check_user_logged_in(user_email)
+        logging.info('The test passed')
 
     def test_registration_short_password(self):
         """Method to check negative registration due to short password"""
+        logging.info('Run the negative case registration with short password')
         # Check the page is displayed
         self.open_registration_form()
         # Fill the form
@@ -56,11 +62,18 @@ class RegistrationTest(TestBase):
         self.assertEqual(
             length_err_txt, self.psw_len_error,
             f"The password length error should be {self.psw_len_error}, but got {length_err_txt}")
+        logging.info('The test passed')
 
     def test_check_sport_ivents(self):
         """Method to check the quantity of sport ivents"""
+        logging.info('Run the test to check sport ivents')
+
         # Load the Live page
-        live_btn = WebDriverWait(self.driver, 8).until(
+        WebDriverWait(self.driver, 15).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, StartPageLocators.TABLE_ITEM_XPATH)),
+            message="The games section didn't load")
+        live_btn = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(
                 (By.XPATH, StartPageLocators.LIVE_BTN_XPATH)),
             message="The live button should be displayed")
@@ -95,8 +108,9 @@ class RegistrationTest(TestBase):
 
             self.assertEqual(
                 row_games, events_amount,
-                f"There are {row_games} rows for {sport_name}, \
-                    but event amount {events_amount} is displayed")
+                f"There are {row_games} rows for {sport_name}, "
+                f"but event amount {events_amount} is displayed")
+        logging.info('The test passed')
 
     def open_registration_form(self):
         """Method to open registration form"""
